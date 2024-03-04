@@ -2,13 +2,30 @@ import streamlit as st
 import os
 import re
 from PIL import Image
+from datetime import datetime, timedelta
 
 # Directorio raíz de las figuras
 #DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
 DIRECTORIO_FIGURAS = '/datos2/prono_bh'
 
+
+def get_fechas():
+    # Lista para almacenar las fechas
+    fechas = []
+    # Definir la fecha de inicio
+    fecha_inicio = datetime(2021, 11, 1)
+    # Iterar a través de los días desde noviembre de 2021 hasta hoy
+    while fecha_inicio <= datetime.now():
+    # Verificar si el día es domingo o miércoles
+        if fecha_inicio.weekday() == 6 or fecha_inicio.weekday() == 2:
+            # Agregar la fecha al vector en formato YYYYMMDD
+            fechas.append(fecha_inicio.strftime("%Y%m%d"))
+        # Incrementar la fecha en un día
+        fecha_inicio += timedelta(days=1)
+    return fechas
+
 # Obtener la lista de fechas disponibles
-fechas_disponibles = sorted(os.listdir(DIRECTORIO_FIGURAS), reverse=True)
+fechas_disponibles = get_fechas()
 
 # Obtener la lista de estaciones disponibles
 estaciones_disponibles = ["junin", "ceres", "resistencia"]  # Reemplaza con tus estaciones reales
@@ -21,7 +38,7 @@ etiquetas_figuras = {
 }
 # Función para obtener la lista de figuras para una fecha y estación dadas
 def obtener_figuras(fecha, estacion):
-    ruta_fecha = os.path.join(DIRECTORIO_FIGURAS, fecha)
+    ruta_fecha = os.path.join(DIRECTORIO_FIGURAS)
     figuras = []
     for root, dirs, files in os.walk(ruta_fecha):
         for file in files:
