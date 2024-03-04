@@ -4,8 +4,8 @@ import re
 from PIL import Image
 
 # Directorio raíz de las figuras
-DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
-
+#DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
+DIRECTORIO_FIGURAS = '/datos2/prono_bh'
 
 # Obtener la lista de fechas disponibles
 fechas_disponibles = sorted(os.listdir(DIRECTORIO_FIGURAS), reverse=True)
