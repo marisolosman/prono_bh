@@ -14,15 +14,16 @@ def get_fechas():
     fechas = []
     # Definir la fecha de inicio
     fecha_inicio = datetime.now().replace(year=datetime.now().year - 1)
+    fecha_fin = datetime.now()
     # Iterar a través de los días desde noviembre de 2021 hasta hoy
-    while fecha_inicio <= datetime.now():
+    while fecha_inicio <= fecha_fin:
     # Verificar si el día es domingo o miércoles
-        if fecha_inicio.weekday() == 6 or fecha_inicio.weekday() == 2:
+        if fecha_fin.weekday() == 6 or fecha_fin.weekday() == 2:
             # Agregar la fecha al vector en formato YYYYMMDD
-            fechas.append(fecha_inicio.strftime("%Y%m%d"))
+            fechas.append(fecha_fin.strftime("%Y%m%d"))
         # Incrementar la fecha en un día
-        fecha_inicio += timedelta(days=1)
-    fechas = sort(fechas, reverse=True)
+        fecha_fin -= timedelta(days=1)
+
     return fechas
 
 # Obtener la lista de fechas disponibles
