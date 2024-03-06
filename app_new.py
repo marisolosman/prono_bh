@@ -22,6 +22,7 @@ def get_fechas():
             fechas.append(fecha_inicio.strftime("%Y%m%d"))
         # Incrementar la fecha en un día
         fecha_inicio += timedelta(days=1)
+    fechas = sort(fechas, reverse=True)
     return fechas
 
 # Obtener la lista de fechas disponibles
@@ -29,7 +30,7 @@ fechas_disponibles = get_fechas()
 
 # Obtener la lista de estaciones disponibles
 estaciones_disponibles = ["junin", "ceres", "resistencia", "vmrs", "tres_arroyos",
-                         "tandil", "parana", "trenque_launquen", "concordia"
+                         "tandil", "parana", "trenque_lauquen", "concordia",
                          "venado_tuerto"]  # Reemplaza con tus estaciones reales
 
 # Diccionario para asignar etiquetas a las figuras
