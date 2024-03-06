@@ -20,8 +20,8 @@ def get_fechas():
     while fecha_inicio <= fecha_fin:
     # Verificar si el día es domingo o miércoles
     if fecha_fin.weekday() == 6: # or fecha_fin.weekday() == 2:
-            # Agregar la fecha al vector en formato YYYYMMDD
-            fechas.append(fecha_fin.strftime("%Y%m%d"))
+        # Agregar la fecha al vector en formato YYYYMMDD
+        fechas.append(fecha_fin.strftime("%Y%m%d"))
         # Incrementar la fecha en un día
         fecha_fin -= timedelta(days=1)
 
