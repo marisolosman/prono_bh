@@ -19,7 +19,7 @@ def get_fechas():
     # Iterar a través de los días desde noviembre de 2021 hasta hoy
     while fecha_inicio <= fecha_fin:
     # Verificar si el día es domingo o miércoles
-        if fecha_fin.weekday() == 6 or fecha_fin.weekday() == 2:
+    if fecha_fin.weekday() == 6: # or fecha_fin.weekday() == 2:
             # Agregar la fecha al vector en formato YYYYMMDD
             fechas.append(fecha_fin.strftime("%Y%m%d"))
         # Incrementar la fecha en un día
