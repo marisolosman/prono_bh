@@ -6,14 +6,14 @@ from datetime import datetime, timedelta
 
 # Directorio raíz de las figuras
 #DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
-DIRECTORIO_FIGURAS = '/datos2/prono_bh'
+DIRECTORIO_FIGURAS = 'FIGURAS'
 
 
 def get_fechas():
     # Lista para almacenar las fechas
     fechas = []
     # Definir la fecha de inicio
-    fecha_inicio = datetime(2021, 11, 1)
+    fecha_inicio = datetime.now().replace(year=datetime.now().year - 1)
     # Iterar a través de los días desde noviembre de 2021 hasta hoy
     while fecha_inicio <= datetime.now():
     # Verificar si el día es domingo o miércoles
@@ -28,7 +28,9 @@ def get_fechas():
 fechas_disponibles = get_fechas()
 
 # Obtener la lista de estaciones disponibles
-estaciones_disponibles = ["junin", "ceres", "resistencia"]  # Reemplaza con tus estaciones reales
+estaciones_disponibles = ["junin", "ceres", "resistencia", "vmrs", "tres_arroyos",
+                         "tandil", "parana", "trenque_launquen", "concordia"
+                         "venado_tuerto"]  # Reemplaza con tus estaciones reales
 
 # Diccionario para asignar etiquetas a las figuras
 etiquetas_figuras = {
