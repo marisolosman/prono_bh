@@ -46,7 +46,7 @@ def obtener_figuras(fecha, estacion):
     figuras = []
     for root, dirs, files in os.walk(ruta_fecha):
         for file in files:
-            if estacion in file:
+            if np.logical_and(estacion in file, fecha in file):
                figuras.append(os.path.join(ruta_fecha, file))
     for i in figuras:
         if "EG" in i:
