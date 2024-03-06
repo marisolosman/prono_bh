@@ -15,7 +15,7 @@ def get_fechas():
     fechas = []
     # Definir la fecha de inicio
     fecha_inicio = datetime.now().replace(year=datetime.now().year - 1)
-    fecha_fin = datetime.now()
+    fecha_fin = datetime.now() - timedelta(days=1)
     # Iterar a través de los días desde noviembre de 2021 hasta hoy
     while fecha_inicio <= fecha_fin:
     # Verificar si el día es domingo o miércoles
