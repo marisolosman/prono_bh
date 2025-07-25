@@ -103,7 +103,8 @@ def main():
     fecha_seleccionada = st.selectbox("Selecciona una fecha:", fechas_disponibles)
 
     # Seleccionar estación
-    estacion_seleccionada = st.selectbox("Selecciona una estación:", estaciones_disponibles)
+    estacion_seleccionada = st.selectbox("Selecciona una estación:", list(estaciones_disponibles.keys()))
+                                         #estaciones_disponibles)
 
     # Obtener figuras para la fecha y estación seleccionadas
     figuras = sorted(obtener_figuras(fecha_seleccionada, estacion_seleccionada))
