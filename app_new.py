@@ -31,9 +31,22 @@ def get_fechas():
 fechas_disponibles = get_fechas()
 
 # Obtener la lista de estaciones disponibles
-estaciones_disponibles = ["junin", "ceres", "resistencia", "vmrs", "tres_arroyos",
-                         "tandil", "parana", "trenque_lauquen", "concordia",
-                         "venado_tuerto"]  # Reemplaza con tus estaciones reales
+#estaciones_disponibles = ["junin", "ceres", "resistencia", "vmrs", "tres_arroyos",
+#                         "tandil", "parana", "trenque_lauquen", "concordia",
+#                         "venado_tuerto"]  # Reemplaza con tus estaciones reales
+
+estaciones_disponibles = {
+    'Junin': 'junin',
+    'Ceres': 'ceres',
+    'Resistencia': 'resistencia',
+    'Villa María del Río Seco': 'vmrs',
+    'Tres Arroyos': 'tres_arroyos',
+    'Tandil': 'tandil',
+    'Parana': 'parana',
+    'Trenque Lauquen': 'trenque_lauquen',
+    'Concordia': 'concordia',
+    'Venado Tuerto': 'venado_tuerto'
+}
 
 # Diccionario para asignar etiquetas a las figuras
 etiquetas_figuras = {
@@ -46,6 +59,7 @@ def obtener_figuras(fecha, estacion):
     ruta_fecha = os.path.join(DIRECTORIO_FIGURAS)
     figuras = []
     fecha = datetime.strptime(fecha, "%Y-%m-%d")
+    estacion = estaciones_disponibles[estacion]
     for root, dirs, files in os.walk(ruta_fecha):
         for file in files:
             if np.logical_and(estacion in file, fecha.strftime("%Y%m%d") in file):
