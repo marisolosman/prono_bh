@@ -36,7 +36,7 @@ fechas_disponibles = get_fechas()
 #                         "venado_tuerto"]  # Reemplaza con tus estaciones reales
 
 estaciones_disponibles = {
-    'Junin': 'junin',
+    'Junín': 'junin',
     'Ceres': 'ceres',
     'Resistencia': 'resistencia',
     'Villa María del Río Seco': 'vmrs',
