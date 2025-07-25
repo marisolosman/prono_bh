@@ -21,7 +21,7 @@ def get_fechas():
         # Verificar si el día es domingo o miércoles
         if fecha_fin.weekday() == 6: # or fecha_fin.weekday() == 2:
             # Agregar la fecha al vector en formato YYYYMMDD
-            fechas.append(fecha_fin.strftime("%Y%m%d"))
+            fechas.append(fecha_fin.strftime("%Y-%m-%d"))
         # Incrementar la fecha en un día
         fecha_fin -= timedelta(days=1)
 
@@ -47,7 +47,7 @@ def obtener_figuras(fecha, estacion):
     figuras = []
     for root, dirs, files in os.walk(ruta_fecha):
         for file in files:
-            if np.logical_and(estacion in file, fecha in file):
+            if np.logical_and(estacion in file, fecha.strftime("%Y%m%d") in file):
                figuras.append(os.path.join(ruta_fecha, file))
     for i in figuras:
         if "EG" in i:
