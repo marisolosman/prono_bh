@@ -45,6 +45,7 @@ etiquetas_figuras = {
 def obtener_figuras(fecha, estacion):
     ruta_fecha = os.path.join(DIRECTORIO_FIGURAS)
     figuras = []
+    fecha = datetime.strptime(fecha, "%Y-%m-%d")
     for root, dirs, files in os.walk(ruta_fecha):
         for file in files:
             if np.logical_and(estacion in file, fecha.strftime("%Y%m%d") in file):
