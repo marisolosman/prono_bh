@@ -8,16 +8,11 @@ from dateutil.rrule import rrule, DAILY
 
 # Directorio raíz de las figuras
 #DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
+
+# --- SIEMPRE PRIMERO ---
+st.set_page_config(layout="wide", page_title="BH - Estaciones", page_icon="💧")
+
 DIRECTORIO_FIGURAS = 'FIGURAS'
-# -------------- Selector de ESTACIÓN --------------
-    estacion_seleccionada = st.selectbox("Selecciona una estación:", list(estaciones_disponibles.keys()))
-
-    # -------------- Mostrar FIGURAS --------------
-    figuras = sorted(obtener_figuras(fecha_seleccionada, estacion_seleccionada))
-
-    col1, col2, col3 = st.columns(3)
-
-
 def get_fechas():
     # Lista para almacenar las fechas
     fechas = []
