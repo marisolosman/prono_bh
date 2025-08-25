@@ -74,24 +74,28 @@ def main():
     col1, col2 = st.columns(2)
 
     with col1:
+        container = st.container(border=True)
         # Agregar explicaciones en la barra lateral
-        st.markdown("## Qué vemos?")
-        st.write("Los paneles muestran la perspectiva para los próximos 30 días del contenido deagua en el suelo (en milímetros, mm) para diferentes estaciones meteorológicas de Argentina. Esta perspectiva se obtiene a partir del promedio de los pronósticos considerados y los diferentes miembros del ensamble y **se actualiza cada lunes y jueves a las 16h**.")
-        st.markdown("## ¿Cómo se elabora este pronóstico?")
-        st.write( "La perspectiva está basada en los pronósticos del Climate Forecast System Version 2 elaborados por la NOAAs National Centers for Environmental Prediction. Se utilizan los 16 pronósticos de las variables diarias que intervienen en el balance hídrico (temperaturas máxima y mínima, humedad relativa, velocidad del viento a 10m, precipitación y evapotranspiración potencial) producidos cada domingo y miércoles.")
-        st.write("Los pronósticos de modelo son calibrados por separado para cada variable utilizando la metodología de quantile-quantile mapping. Con excepción de la precipitación, todas las variables se ajustan siguiendo una distribución empírica a partir de los datos del período 1999-2010. En el caso de la lluvia, se asume que las observaciones siguen una distribución gamma cuyos parámetros se obtienen con los datos del período 1999-2010. Las bases de datos de referencia corresponden a los datos de estaciones meteorológicas del Servicio Meteorológico Nacional y del Instituto Nacional de Tecnología Agropecuaria.")
+        container.markdown("## Qué vemos?")
+        container.write("Los paneles muestran la perspectiva para los próximos 30 días del contenido deagua en el suelo (en milímetros, mm) para diferentes estaciones meteorológicas de Argentina. Esta perspectiva se obtiene a partir del promedio de los pronósticos considerados y los diferentes miembros del ensamble y **se actualiza cada lunes y jueves a las 16h**.")
+        container2 = st.container(border=True)
+        container2.markdown("## ¿Cómo se elabora este pronóstico?")
+        container2.write( "La perspectiva está basada en los pronósticos del Climate Forecast System Version 2 elaborados por la NOAAs National Centers for Environmental Prediction. Se utilizan los 16 pronósticos de las variables diarias que intervienen en el balance hídrico (temperaturas máxima y mínima, humedad relativa, velocidad del viento a 10m, precipitación y evapotranspiración potencial) producidos cada domingo y miércoles.")
+        container2.write("Los pronósticos de modelo son calibrados por separado para cada variable utilizando la metodología de quantile-quantile mapping. Con excepción de la precipitación, todas las variables se ajustan siguiendo una distribución empírica a partir de los datos del período 1999-2010. En el caso de la lluvia, se asume que las observaciones siguen una distribución gamma cuyos parámetros se obtienen con los datos del período 1999-2010. Las bases de datos de referencia corresponden a los datos de estaciones meteorológicas del Servicio Meteorológico Nacional y del Instituto Nacional de Tecnología Agropecuaria.")
 
     with col2:
-        st.markdown("## Cómo se interpreta?")
-        st.write("<p style='margin-bottom: 5px;'>El eje horizontal indica las fechas desde la siembra del cultivo considerado hasta la finalización estimada de su ciclo. El eje vertical indica el contenido de agua en el suelo (mm) hasta 1m de profundidad, o hasta una profundidad menor si el perfil impide la penetración radicular.</p>", unsafe_allow_html=True)
-        st.write("<p style='margin-bottom: 5px;'> La línea negra indica la evolución del contenido de agua en el suelo (mm) a lo largo de la campaña en curso, estimado según un modelo propio de balance hídrico diario (ver metodología de balance hídrico) basado en la metodología propuesta por FAO. En este caso, el contenido de agua se estimó según datos meteorológicos medidos en la estación.</p>", unsafe_allow_html=True )
-        st.write("<p style='margin-bottom: 5px;'>La línea verde señala la evolución prevista del contenido de agua en el suelo, es decir, el almacenaje pronosticado según el ensamble del modelo meteorológico considerado.</p>", unsafe_allow_html=True)
-        st.write("<p style='margin-bottom: 5px;'>Las áreas de color gris oscuro y gris claro muestran la dispersión de 50% y 100%, respectivamente, en los miembros del modelo.</p>", unsafe_allow_html=True)
-        st.write("<p style='margin-bottom: 5px;'>La línea punteada azul marca a lo largo del ciclo los niveles más bajos de almacenaje de agua obtenidos en el periodo histórico (1970-actualidad). O sea, si la línea negra desciende tanto como para estar por debajo de la línea punteada, significa que nunca antes se han registrado niveles tan bajos de almacenamiento hídrico en esa fecha.</p>", unsafe_allow_html=True)
-        st.write("<p style='margin-bottom: 5px;'>Tanto la evolución del contenido de agua en el suelo en la campaña en curso (línea negra) como los pronósticos deben ser inferiores a la capacidad de campo del suelo característico de la zona, que representa el máximo contenido de agua posible y se visualiza en el gráfico como una línea horizontal azul.</p>", unsafe_allow_html=True)
-        st.write("<p style='margin-bottom: 5px;'>Niveles inferiores al punto de marchitez permanente, representado por una línea horizontal roja, indican falta total de agua útil, es decir, sequía severa.</p>", unsafe_allow_html=True)
-        st.write("<p style='margin-bottom: 5px;'>Para cada cultivo se han resaltado: el periodo crítico para déficit hídrico (área amarilla) y el periodo crítico para excesos hídricos (área celeste).</p>", unsafe_allow_html=True)
+        container3 = st.container(border=True)
+        container3.markdown("## Cómo se interpreta?")
+        container3.write("<p style='margin-bottom: 5px;'>El eje horizontal indica las fechas desde la siembra del cultivo considerado hasta la finalización estimada de su ciclo. El eje vertical indica el contenido de agua en el suelo (mm) hasta 1m de profundidad, o hasta una profundidad menor si el perfil impide la penetración radicular.</p>", unsafe_allow_html=True)
+        container3.write("<p style='margin-bottom: 5px;'> La línea negra indica la evolución del contenido de agua en el suelo (mm) a lo largo de la campaña en curso, estimado según un modelo propio de balance hídrico diario (ver metodología de balance hídrico) basado en la metodología propuesta por FAO. En este caso, el contenido de agua se estimó según datos meteorológicos medidos en la estación.</p>", unsafe_allow_html=True )
+        container3.write("<p style='margin-bottom: 5px;'>La línea verde señala la evolución prevista del contenido de agua en el suelo, es decir, el almacenaje pronosticado según el ensamble del modelo meteorológico considerado.</p>", unsafe_allow_html=True)
+        container3.write("<p style='margin-bottom: 5px;'>Las áreas de color gris oscuro y gris claro muestran la dispersión de 50% y 100%, respectivamente, en los miembros del modelo.</p>", unsafe_allow_html=True)
+        container3.write("<p style='margin-bottom: 5px;'>La línea punteada azul marca a lo largo del ciclo los niveles más bajos de almacenaje de agua obtenidos en el periodo histórico (1970-actualidad). O sea, si la línea negra desciende tanto como para estar por debajo de la línea punteada, significa que nunca antes se han registrado niveles tan bajos de almacenamiento hídrico en esa fecha.</p>", unsafe_allow_html=True)
+        container3.write("<p style='margin-bottom: 5px;'>Tanto la evolución del contenido de agua en el suelo en la campaña en curso (línea negra) como los pronósticos deben ser inferiores a la capacidad de campo del suelo característico de la zona, que representa el máximo contenido de agua posible y se visualiza en el gráfico como una línea horizontal azul.</p>", unsafe_allow_html=True)
+        container3.write("<p style='margin-bottom: 5px;'>Niveles inferiores al punto de marchitez permanente, representado por una línea horizontal roja, indican falta total de agua útil, es decir, sequía severa.</p>", unsafe_allow_html=True)
+        container3.write("<p style='margin-bottom: 5px;'>Para cada cultivo se han resaltado: el periodo crítico para déficit hídrico (área amarilla) y el periodo crítico para excesos hídricos (área celeste).</p>", unsafe_allow_html=True)
 
+    st.divider()
     st.markdown("#### Selecciona una fecha y una estación para ver las figuras correspondientes.")
 
 
@@ -146,20 +150,20 @@ def main():
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
-                    st.image(imagen, width=450)
+                    st.image(imagen, width=420)
 
             elif i ==1:
                 columna = col2
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
-                    st.image(imagen, width=450)
+                    st.image(imagen, width=420)
             else:
                 columna = col3
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
-                    st.image(imagen, width=450)
+                    st.image(imagen, width=420)
     else:
         st.warning("No se encontraron figuras para la fecha y estación seleccionadas.")
     st.write("## Referencias")
