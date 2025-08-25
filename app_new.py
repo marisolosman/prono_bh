@@ -128,7 +128,7 @@ def main():
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
-                    st.image(imagen, width=400)                   
+                    st.image(imagen, width=400)
 
             elif i ==1:
                 columna = col2
