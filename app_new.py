@@ -103,7 +103,7 @@ def main():
     # Obtener figuras para la fecha y estación seleccionadas
     figuras = sorted(obtener_figuras(fecha_seleccionada, estacion_seleccionada))
      # Mostrar las figuras
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns(3)
 
     if figuras:
         for i, figura in enumerate(figuras):
@@ -127,7 +127,7 @@ def main():
                     imagen = Image.open(figura)
                     st.image(imagen, width=400)
             else:
-                columna = col1
+                columna = col3
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
