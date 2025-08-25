@@ -9,6 +9,14 @@ from dateutil.rrule import rrule, DAILY
 # Directorio raíz de las figuras
 #DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
 DIRECTORIO_FIGURAS = 'FIGURAS'
+# -------------- Selector de ESTACIÓN --------------
+    estacion_seleccionada = st.selectbox("Selecciona una estación:", list(estaciones_disponibles.keys()))
+
+    # -------------- Mostrar FIGURAS --------------
+    figuras = sorted(obtener_figuras(fecha_seleccionada, estacion_seleccionada))
+
+    col1, col2, col3 = st.columns(3)
+
 
 def get_fechas():
     # Lista para almacenar las fechas
@@ -95,46 +103,6 @@ def main():
         st.write("<p style='margin-bottom: 5px;'>Para cada cultivo se han resaltado: el periodo crítico para déficit hídrico (área amarilla) y el periodo crítico para excesos hídricos (área celeste).</p>", unsafe_allow_html=True)
 
     st.markdown("#### Selecciona una fecha y una estación para ver las figuras correspondientes.")
-    # -------------- Selector de FECHA: ahora con st.date_input (almanaque) --------------
-    # Fechas disponibles como objetos date
-#    fechas_disp_date = [datetime.fromisoformat(f).date() for f in fechas_disponibles]
-#    min_disp = min(fechas_disp_date)
-#    max_disp = max(fechas_disp_date)
-#
-#    # Valor por defecto: la última fecha disponible
-#    default_date = max_disp
-#
-#    fecha_elegida_date = st.date_input(
-#        "Selecciona una fecha (actualización: lun/jue):",
-#        value=default_date,
-#        min_value=min_disp,
-#        max_value=max_disp,
-#        help="Solo hay pronósticos los miércoles y domingos (fechas válidas dentro del rango).",
-#    )
-#
-#    # Convertimos a string "YYYY-MM-DD" para el resto del flujo
-#    if isinstance(fecha_elegida_date, tuple):
-#        st.error("Seleccioná un único día (no un rango).")
-#        return
-#    fecha_seleccionada = fecha_elegida_date.strftime("%Y-%m-%d")
-#
-#    # Validación: ¿está dentro de las fechas publicadas?
-#    if fecha_elegida_date not in fechas_disp_date:
-#        # Buscar la próxima fecha disponible hacia adelante; si no hay, hacia atrás.
-#        posteriores = sorted([d for d in fechas_disp_date if d >= fecha_elegida_date])
-#        anteriores = sorted([d for d in fechas_disp_date if d < fecha_elegida_date])
-#        sugerida = posteriores[0] if posteriores else (anteriores[-1] if anteriores else default_date)
-#
-#        st.warning(
-#            f"La fecha {fecha_seleccionada} no tiene pronóstico publicado. "
-#            f"Te sugiero {sugerida.isoformat()}."
-#        )
-#        if st.button(f"Usar {sugerida.isoformat()}"):
-#            fecha_elegida_date = sugerida
-#            fecha_seleccionada = sugerida.strftime("%Y-%m-%d")
-#
-    # Seleccionar etiqueta
-    #etiqueta_seleccionada = st.selectbox("Selecciona una etiqueta:", list(etiquetas_figuras.keys()))
 
     # Seleccionar fecha
     fecha_seleccionada = st.selectbox("Selecciona una fecha:", fechas_disponibles)
@@ -145,7 +113,7 @@ def main():
     # Obtener figuras para la fecha y estación seleccionadas
     figuras = sorted(obtener_figuras(fecha_seleccionada, estacion_seleccionada))
      # Mostrar las figuras
-    col1, col2, col3 = st.columns(3)
+    col1, col2 = st.columns(2)
 
     if figuras:
         for i, figura in enumerate(figuras):
@@ -169,7 +137,7 @@ def main():
                     imagen = Image.open(figura)
                     st.image(imagen, width=400)
             else:
-                columna = col3
+                columna = col1
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
