@@ -61,7 +61,7 @@ def main():
 #DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
 
    # Obtener la lista de fechas disponibles
-    fechas_disponibles = get_fechas()
+    #fechas_disponibles = get_fechas()
 
    # Diccionario para asignar etiquetas a las figuras
     etiquetas_figuras = {
@@ -94,8 +94,36 @@ def main():
 
     st.markdown("#### Selecciona una fecha y una estación para ver las figuras correspondientes.")
 
+
+    # --- Fechas disponibles ---
+    fechas_disponibles_str = get_fechas()                      # ['YYYY-MM-DD', ...]
+    fechas_validas = { datetime.fromisoformat(f).date() for f in fechas_disponibles_str }
+    min_d, max_d = min(fechas_validas), max(fechas_validas)
+
+    # --- Selector tipo almanaque ---
+    fecha_elegida = st.date_input(
+        "Fecha (publicamos Mié/Dom):",
+        value=max_d,               # por defecto la última disponible
+        min_value=min_d,
+        max_value=max_d,
+    )
+    if isinstance(fecha_elegida, tuple):
+        st.error("Seleccioná un único día (no rango).")
+        return
+
+    # Validación: ¿está en la lista?
+    if fecha_elegida not in fechas_validas:
+        # Elegimos sugerencia más cercana
+        posteriores = sorted([d for d in fechas_validas if d >= fecha_elegida])
+        anteriores = sorted([d for d in fechas_validas if d < fecha_elegida])
+        sugerida = posteriores[0] if posteriores else anteriores[-1]
+        st.warning(f"No hay pronóstico para {fecha_elegida.isoformat()}. Sugerencia: {sugerida.isoformat()}")
+        if st.button(f"Usar {sugerida.isoformat()}"):
+            fecha_elegida = sugerida
+
+    fecha_seleccionada = fecha_elegida.strftime("%Y-%m-%d")
     # Seleccionar fecha
-    fecha_seleccionada = st.selectbox("Selecciona una fecha:", fechas_disponibles)
+    #fecha_seleccionada = st.selectbox("Selecciona una fecha:", fechas_disponibles)
     # Seleccionar estación
     estacion_seleccionada = st.selectbox("Selecciona una estación:", list(estaciones_disponibles.keys()))
                                          #estaciones_disponibles)
