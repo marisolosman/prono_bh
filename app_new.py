@@ -3,12 +3,14 @@ import os
 import re
 import numpy as np
 from PIL import Image
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
+from streamlit_calendar import calendar
+from dateutil.rrule import rrule, DAILY
+
 
 # Directorio raíz de las figuras
 #DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
 DIRECTORIO_FIGURAS = 'FIGURAS'
-
 
 def get_fechas():
     # Lista para almacenar las fechas
@@ -78,7 +80,11 @@ def main():
     with col1:
         # Agregar explicaciones en la barra lateral
         st.markdown("## Qué vemos?")
-        st.write("Los paneles muestran la perspectiva para los próximos 30 días del contenido de agua en el suelo (en milímetros, mm) para diferentes estaciones meteorológicas de Argentina. Esta perspectiva se obtiene a partir del promedio de los pronósticos considerados y los diferentes miembros del ensamble y se actualiza cada lunes y jueves por la tarde.")
+        st.write("Los paneles muestran la perspectiva para los próximos 30 días del contenido de
+                 agua en el suelo (en milímetros, mm) para diferentes estaciones meteorológicas de
+                 Argentina. Esta perspectiva se obtiene a partir del promedio de los pronósticos
+                 considerados y los diferentes miembros del ensamble y se actualiza cada lunes y
+                 jueves a las 16h.")
         st.markdown("## ¿Cómo se elabora este pronóstico?")
         st.write( "La perspectiva está basada en los pronósticos del Climate Forecast System Version 2 elaborados por la NOAAs National Centers for Environmental Prediction. Se utilizan los 16 pronósticos de las variables diarias que intervienen en el balance hídrico (temperaturas máxima y mínima, humedad relativa, velocidad del viento a 10m, precipitación y evapotranspiración potencial) producidos cada domingo y miércoles.")
         st.write("Los pronósticos de modelo son calibrados por separado para cada variable utilizando la metodología de quantile-quantile mapping. Con excepción de la precipitación, todas las variables se ajustan siguiendo una distribución empírica a partir de los datos del período 1999-2010. En el caso de la lluvia, se asume que las observaciones siguen una distribución gamma cuyos parámetros se obtienen con los datos del período 1999-2010. Las bases de datos de referencia corresponden a los datos de estaciones meteorológicas del Servicio Meteorológico Nacional y del Instituto Nacional de Tecnología Agropecuaria.")
@@ -101,7 +107,6 @@ def main():
 
     # Seleccionar fecha
     fecha_seleccionada = st.selectbox("Selecciona una fecha:", fechas_disponibles)
-
     # Seleccionar estación
     estacion_seleccionada = st.selectbox("Selecciona una estación:", list(estaciones_disponibles.keys()))
                                          #estaciones_disponibles)
@@ -109,8 +114,8 @@ def main():
     # Obtener figuras para la fecha y estación seleccionadas
     figuras = sorted(obtener_figuras(fecha_seleccionada, estacion_seleccionada))
      # Mostrar las figuras
-    col1, col2 = st.columns(2)
-    
+    col1, col2, col3 = st.columns(3)
+
     if figuras:
         for i, figura in enumerate(figuras):
             if 'EG' in figura:
@@ -124,18 +129,20 @@ def main():
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
-                    st.image(imagen, width=600)                   
+                    st.image(imagen, width=400)                   
 
             elif i ==1:
                 columna = col2
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
-                    st.image(imagen, width=600)
+                    st.image(imagen, width=400)
             else:
-                st.subheader(titulo)
-                imagen = Image.open(figura)
-                st.image(imagen, width=600)
+                columna = col3
+                with columna:
+                    st.subheader(titulo)
+                    imagen = Image.open(figura)
+                    st.image(imagen, width=400)
     else:
         st.warning("No se encontraron figuras para la fecha y estación seleccionadas.")
     st.write("## Referencias")
