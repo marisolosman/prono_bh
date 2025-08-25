@@ -6,13 +6,24 @@ from PIL import Image
 from datetime import date, datetime, timedelta
 from dateutil.rrule import rrule, DAILY
 
-# Directorio raíz de las figuras
-#DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
-
-# --- SIEMPRE PRIMERO ---
+# === Definiciones GLOBALES (accesibles desde funciones) ======================
 st.set_page_config(layout="wide", page_title="BH - Estaciones", page_icon="💧")
 
-DIRECTORIO_FIGURAS = 'FIGURAS'
+DIRECTORIO_FIGURAS = "FIGURAS"
+
+estaciones_disponibles = {
+    'Junín': 'junin',
+    'Ceres': 'ceres',
+    'Resistencia': 'resistencia',
+    'Villa María del Río Seco': 'vmrs',
+    'Tres Arroyos': 'tres_arroyos',
+    'Tandil': 'tandil',
+    'Parana': 'parana',
+    'Trenque Lauquen': 'trenque_lauquen',
+    'Concordia': 'concordia',
+    'Venado Tuerto': 'venado_tuerto'
+}
+
 def get_fechas():
     # Lista para almacenar las fechas
     fechas = []
@@ -30,33 +41,6 @@ def get_fechas():
 
     return fechas
 
-# Obtener la lista de fechas disponibles
-fechas_disponibles = get_fechas()
-
-# Obtener la lista de estaciones disponibles
-#estaciones_disponibles = ["junin", "ceres", "resistencia", "vmrs", "tres_arroyos",
-#                         "tandil", "parana", "trenque_lauquen", "concordia",
-#                         "venado_tuerto"]  # Reemplaza con tus estaciones reales
-
-estaciones_disponibles = {
-    'Junín': 'junin',
-    'Ceres': 'ceres',
-    'Resistencia': 'resistencia',
-    'Villa María del Río Seco': 'vmrs',
-    'Tres Arroyos': 'tres_arroyos',
-    'Tandil': 'tandil',
-    'Parana': 'parana',
-    'Trenque Lauquen': 'trenque_lauquen',
-    'Concordia': 'concordia',
-    'Venado Tuerto': 'venado_tuerto'
-}
-
-# Diccionario para asignar etiquetas a las figuras
-etiquetas_figuras = {
-    "Corregido": ["_corregido_", "_corregido-"],
-    "Sin Corregir": ["_sin_corregir_", "_sin_corregir-"],
-    "Climatológico": ["_climatologico_", "_climatologico-"]
-}
 # Función para obtener la lista de figuras para una fecha y estación dadas
 def obtener_figuras(fecha, estacion):
     ruta_fecha = os.path.join(DIRECTORIO_FIGURAS)
@@ -74,7 +58,18 @@ def obtener_figuras(fecha, estacion):
 
 # Función principal de la aplicación
 def main():
-    st.set_page_config(layout="wide")
+#DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
+
+   # Obtener la lista de fechas disponibles
+    fechas_disponibles = get_fechas()
+
+   # Diccionario para asignar etiquetas a las figuras
+    etiquetas_figuras = {
+        "Corregido": ["_corregido_", "_corregido-"],
+        "Sin Corregir": ["_sin_corregir_", "_sin_corregir-"],
+        "Climatológico": ["_climatologico_", "_climatologico-"]
+    }
+
     st.title("Pronóstico de Balance Hídrico en estaciones de Argentina")
     col1, col2 = st.columns(2)
 
