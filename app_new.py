@@ -6,7 +6,6 @@ from PIL import Image
 from datetime import date, datetime, timedelta
 from dateutil.rrule import rrule, DAILY
 
-
 # Directorio raíz de las figuras
 #DIRECTORIO_FIGURAS = "/home/marisol/Dropbox/investigacion/proyectos/pde_2019/resultados/objetivo_1/figuras_pronosticos/"
 DIRECTORIO_FIGURAS = 'FIGURAS'
@@ -95,7 +94,7 @@ def main():
         st.write("<p style='margin-bottom: 5px;'>Niveles inferiores al punto de marchitez permanente, representado por una línea horizontal roja, indican falta total de agua útil, es decir, sequía severa.</p>", unsafe_allow_html=True)
         st.write("<p style='margin-bottom: 5px;'>Para cada cultivo se han resaltado: el periodo crítico para déficit hídrico (área amarilla) y el periodo crítico para excesos hídricos (área celeste).</p>", unsafe_allow_html=True)
 
-    st.write("Selecciona una fecha y una estación para ver las figuras correspondientes.")
+    st.markdown("#### Selecciona una fecha y una estación para ver las figuras correspondientes.")
     # -------------- Selector de FECHA: ahora con st.date_input (almanaque) --------------
     # Fechas disponibles como objetos date
 #    fechas_disp_date = [datetime.fromisoformat(f).date() for f in fechas_disponibles]
