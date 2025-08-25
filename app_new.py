@@ -79,11 +79,7 @@ def main():
     with col1:
         # Agregar explicaciones en la barra lateral
         st.markdown("## Qué vemos?")
-        st.write("Los paneles muestran la perspectiva para los próximos 30 días del contenido de
-                 agua en el suelo (en milímetros, mm) para diferentes estaciones meteorológicas de
-                 Argentina. Esta perspectiva se obtiene a partir del promedio de los pronósticos
-                 considerados y los diferentes miembros del ensamble y se actualiza cada lunes y
-                 jueves a las 16h.")
+        st.write("Los paneles muestran la perspectiva para los próximos 30 días del contenido deagua en el suelo (en milímetros, mm) para diferentes estaciones meteorológicas de Argentina. Esta perspectiva se obtiene a partir del promedio de los pronósticos considerados y los diferentes miembros del ensamble y se actualiza cada lunes y jueves a las 16h.")
         st.markdown("## ¿Cómo se elabora este pronóstico?")
         st.write( "La perspectiva está basada en los pronósticos del Climate Forecast System Version 2 elaborados por la NOAAs National Centers for Environmental Prediction. Se utilizan los 16 pronósticos de las variables diarias que intervienen en el balance hídrico (temperaturas máxima y mínima, humedad relativa, velocidad del viento a 10m, precipitación y evapotranspiración potencial) producidos cada domingo y miércoles.")
         st.write("Los pronósticos de modelo son calibrados por separado para cada variable utilizando la metodología de quantile-quantile mapping. Con excepción de la precipitación, todas las variables se ajustan siguiendo una distribución empírica a partir de los datos del período 1999-2010. En el caso de la lluvia, se asume que las observaciones siguen una distribución gamma cuyos parámetros se obtienen con los datos del período 1999-2010. Las bases de datos de referencia corresponden a los datos de estaciones meteorológicas del Servicio Meteorológico Nacional y del Instituto Nacional de Tecnología Agropecuaria.")
