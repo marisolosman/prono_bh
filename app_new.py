@@ -4,7 +4,6 @@ import re
 import numpy as np
 from PIL import Image
 from datetime import date, datetime, timedelta
-from streamlit_calendar import calendar
 from dateutil.rrule import rrule, DAILY
 
 
@@ -21,7 +20,7 @@ def get_fechas():
     # Iterar a través de los días desde noviembre de 2021 hasta hoy
     while fecha_inicio <= fecha_fin:
         # Verificar si el día es domingo o miércoles
-        if fecha_fin.weekday() == 6 or fecha_fin.weekday() == 2:
+        if fecha_fin.weekday() in (6, 2):
             # Agregar la fecha al vector en formato YYYYMMDD
             fechas.append(fecha_fin.strftime("%Y-%m-%d"))
         # Incrementar la fecha en un día
@@ -101,12 +100,49 @@ def main():
         st.write("<p style='margin-bottom: 5px;'>Para cada cultivo se han resaltado: el periodo crítico para déficit hídrico (área amarilla) y el periodo crítico para excesos hídricos (área celeste).</p>", unsafe_allow_html=True)
 
     st.write("Selecciona una fecha y una estación para ver las figuras correspondientes.")
+    # -------------- Selector de FECHA: ahora con st.date_input (almanaque) --------------
+    # Fechas disponibles como objetos date
+    fechas_disp_date = [datetime.fromisoformat(f).date() for f in fechas_disponibles]
+    min_disp = min(fechas_disp_date)
+    max_disp = max(fechas_disp_date)
+
+    # Valor por defecto: la última fecha disponible
+    default_date = max_disp
+
+    fecha_elegida_date = st.date_input(
+        "Selecciona una fecha (actualización: lun/jue):",
+        value=default_date,
+        min_value=min_disp,
+        max_value=max_disp,
+        help="Solo hay pronósticos los miércoles y domingos (fechas válidas dentro del rango).",
+    )
+
+    # Convertimos a string "YYYY-MM-DD" para el resto del flujo
+    if isinstance(fecha_elegida_date, tuple):
+        st.error("Seleccioná un único día (no un rango).")
+        return
+    fecha_seleccionada = fecha_elegida_date.strftime("%Y-%m-%d")
+
+    # Validación: ¿está dentro de las fechas publicadas?
+    if fecha_elegida_date not in fechas_disp_date:
+        # Buscar la próxima fecha disponible hacia adelante; si no hay, hacia atrás.
+        posteriores = sorted([d for d in fechas_disp_date if d >= fecha_elegida_date])
+        anteriores = sorted([d for d in fechas_disp_date if d < fecha_elegida_date])
+        sugerida = posteriores[0] if posteriores else (anteriores[-1] if anteriores else default_date)
+
+        st.warning(
+            f"La fecha {fecha_seleccionada} no tiene pronóstico publicado. "
+            f"Te sugiero {sugerida.isoformat()}."
+        )
+        if st.button(f"Usar {sugerida.isoformat()}"):
+            fecha_elegida_date = sugerida
+            fecha_seleccionada = sugerida.strftime("%Y-%m-%d")
 
     # Seleccionar etiqueta
     #etiqueta_seleccionada = st.selectbox("Selecciona una etiqueta:", list(etiquetas_figuras.keys()))
 
     # Seleccionar fecha
-    fecha_seleccionada = st.selectbox("Selecciona una fecha:", fechas_disponibles)
+    #fecha_seleccionada = st.selectbox("Selecciona una fecha:", fechas_disponibles)
     # Seleccionar estación
     estacion_seleccionada = st.selectbox("Selecciona una estación:", list(estaciones_disponibles.keys()))
                                          #estaciones_disponibles)
