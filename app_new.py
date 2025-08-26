@@ -163,7 +163,7 @@ def main():
                 with columna:
                     st.subheader(titulo)
                     imagen = Image.open(figura)
-                    st.image(imagen, width=420)
+                    st.image(imagen, width=450)
     else:
         st.warning("No se encontraron figuras para la fecha y estación seleccionadas.")
     st.write("## Referencias")
